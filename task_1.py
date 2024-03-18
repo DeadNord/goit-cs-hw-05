@@ -33,7 +33,7 @@ class FileOrganizer:
         """Asynchronously reads all files in the given folder and its subfolders."""
         try:
             # Convert the rglob result to a list since it's not asynchronous
-            files = list(folder.rglob("*.*"))
+            files = [f for f in folder.rglob("*.*") if f.is_file()]
             for file in files:
                 await self.copy_file(file)
         except Exception as e:
